@@ -1,5 +1,3 @@
-// Interaktives Skript für die Nordheim24-Website
-
 // Produkt-Datenbank (Beispielprodukte)
 const products = [
     { id: 1, name: "Frische Brötchen", price: 1.20 },
@@ -24,7 +22,7 @@ function addToCart(productId) {
 // Funktion zum Anzeigen des Warenkorbs
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart");
-    cartContainer.innerHTML = "<h3>? Dein Warenkorb</h3>";
+    cartContainer.innerHTML = "<h3>🛒 Dein Warenkorb</h3>";
 
     if (cart.length === 0) {
         cartContainer.innerHTML += "<p>Dein Warenkorb ist leer.</p>";
@@ -37,7 +35,7 @@ function updateCartDisplay() {
 
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     cartContainer.innerHTML += `<h4>Gesamt: ${total.toFixed(2)}€</h4>`;
-    cartContainer.innerHTML += `<button onclick="checkout()">?￯ﾸﾏ Zur Kasse</button>`;
+    cartContainer.innerHTML += `<button onclick="checkout()">🛍️ Zur Kasse</button>`;
 }
 
 // Funktion zum Entfernen eines Produkts aus dem Warenkorb
@@ -55,10 +53,4 @@ function checkout() {
 // Automatisches Laden des Warenkorbs beim Öffnen der Seite
 document.addEventListener("DOMContentLoaded", function() {
     updateCartDisplay();
-
-    // Dynamisches Hinzufügen der Produktliste zur Seite
-    const productContainer = document.getElementById("products");
-    products.forEach(product => {
-        productContainer.innerHTML += `<p>${product.name} - ${product.price.toFixed(2)}€ <button onclick="addToCart(${product.id})">? In den Warenkorb</button></p>`;
-    });
 });
