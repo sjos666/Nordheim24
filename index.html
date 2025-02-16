@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -30,16 +29,23 @@
 <body>
     <div class="header">Willkommen bei Nordheim24</div>
     <p>Ihr vollautomatisierter 24/7 Supermarkt.</p>
-<h2>Unsere Produkte</h2>
-<div id="products">
-    <p>🍞 Frische Brötchen - 1,20€ <button onclick="addToCart(1)">🛒 In den Warenkorb</button></p>
-    <p>🥛 Bio-Milch - 2,50€ <button onclick="addToCart(2)">🛒 In den Warenkorb</button></p>
-    <p>🍎 Äpfel - 3,00€ / kg <button onclick="addToCart(3)">🛒 In den Warenkorb</button></p>
-</div>
+    
+    <h2>Unsere Produkte</h2>
+    <div id="products">
+        <p>🍞 Frische Brötchen - 1,20€ <button onclick="addToCart(1)">🛒 In den Warenkorb</button></p>
+        <p>🥛 Bio-Milch - 2,50€ <button onclick="addToCart(2)">🛒 In den Warenkorb</button></p>
+        <p>🍎 Äpfel - 3,00€ / kg <button onclick="addToCart(3)">🛒 In den Warenkorb</button></p>
+    </div>
 
-<!-- Hier wird der Warenkorb angezeigt -->
-<div id="cart"></div>
+    <!-- Warenkorb-Bereich -->
+    <div id="cart">
+        <h3>🛒 Dein Warenkorb</h3>
+        <p>Dein Warenkorb ist leer.</p>
+    </div>
+
     <p><strong>Zugang nur mit App und NFC-Karte.</strong></p>
+
+    <!-- JavaScript-Datei einbinden -->
+    <script src="./Nordheim24_Interactive.js"></script>
 </body>
-<script src="Nordheim24_Interactive.js"></script>
 </html>
