@@ -1,7 +1,7 @@
 // Produkt-Datenbank (Beispielprodukte)
 const products = [
-    { id: 1, name: "Frische Brötchen", price: 1.20 },
-    { id: 2, name: "Bio-Milch", price: 2.50 },
+    { id: 1, name: "Frische Brötchen", price: 2.20 },
+    { id: 2, name: "Milch", price: 2.50 },
     { id: 3, name: "Äpfel (1kg)", price: 3.00 }
 ];
 
