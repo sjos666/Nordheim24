@@ -29,3 +29,35 @@ body {
     border-radius: 5px;
     display: inline-block;
 }
+/* Stil für den Produkt-Banner */
+.product-banner {
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.8); /* Halbtransparenter Hintergrund */
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.banner-content {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 10px 0;
+    animation: scrollBanner 15s linear infinite;
+}
+
+.banner-content span {
+    display: inline-block;
+    margin-right: 50px; /* Abstand zwischen den Produkten */
+    font-size: 1.2em;
+    color: #333;
+}
+
+@keyframes scrollBanner {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
