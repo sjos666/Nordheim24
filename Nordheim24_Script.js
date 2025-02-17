@@ -47,4 +47,10 @@ function removeFromCart(index) {
 
 // Checkout-Funktion (PayPal-Integration möglich)
 function checkout() {
-    alert(" 
+    alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
+}
+
+// Automatisches Laden des Warenkorbs beim Öffnen der Seite
+document.addEventListener("DOMContentLoaded", function() {
+    updateCartDisplay();
+});
