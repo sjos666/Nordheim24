@@ -19,9 +19,11 @@ function addToCart(productId) {
     }
 }
 
-// Funktion zum Anzeigen des Warenkorbs
+// Funktion zum Anzeigen des Warenkorbs (verhindert doppelte Einträge)
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart");
+    
+    // Löscht vorherigen Warenkorb-Inhalt, um doppelte Einträge zu vermeiden
     cartContainer.innerHTML = "<h3>🛒 Dein Warenkorb</h3>";
 
     if (cart.length === 0) {
