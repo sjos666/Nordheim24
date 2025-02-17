@@ -4,80 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nordheim24 - Der 24/7 Supermarkt</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('https://raw.githubusercontent.com/sjos666/Nordheim24/main/background.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            text-align: center;
-            padding: 20px;
-            color: black;
-        }
-        
-        .header {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        
-        .product {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="header">
-        <img class="logo" src="Nordheim24_Logo.png" alt="Nordheim24 Logo">
+        <img class="logo" src="logo.png" alt="Nordheim24 Logo">
     </div>
 
     <h1>Ihr vollautomatisierter 24/7 Supermarkt.</h1>
 
+    <!-- Laufender Banner mit Produktsortiment -->
+    <div class="product-banner">
+        <div class="banner-content">
+            <span>🥖 Frische Brötchen - 2,20€</span>
+            <span>🥛 Milch - 2,50€</span>
+            <span>🍎 Äpfel - 3,00€ / kg</span>
+            <!-- Weitere Produkte können hier hinzugefügt werden -->
+        </div>
+    </div>
+
     <h2>Unsere Produkte</h2>
 
     <div id="products">
-        <p>🥖 Frische Brötchen - 2,20€ <button onclick="addToCart(1)">🛒 In den Warenkorb</button></p>
-        <p>🥛 Milch - 2,50€ <button onclick="addToCart(2)">🛒 In den Warenkorb</button></p>
-        <p>🍎 Äpfel - 3,00€ / kg <button onclick="addToCart(3)">🛒 In den Warenkorb</button></p>
+        <div class="product">
+            <p>🥖 Frische Brötchen - 2,20€</p>
+            <button onclick="addToCart(1)">🛒 In den Warenkorb</button>
+        </div>
+        <div class="product">
+            <p>🥛 Milch - 2,50€</p>
+            <button onclick="addToCart(2)">🛒 In den Warenkorb</button>
+        </div>
+        <div class="product">
+            <p>🍎 Äpfel - 3,00€ / kg</p>
+            <button onclick="addToCart(3)">🛒 In den Warenkorb</button>
+        </div>
     </div>
 
-    <!-- Warenkorb-Anzeige (nur eine Instanz) -->
-    <div id="cart-container">
-        <h3>🛒 Dein Warenkorb</h3>
-        <div id="cart"></div>
+    <h3>🛒 Dein Warenkorb</h3>
+    <div id="cart">
+        <p>Dein Warenkorb ist leer.</p>
     </div>
 
     <p><strong>Zugang nur mit App und NFC-Karte.</strong></p>
 
-    <!-- Einbindung der interaktiven JavaScript-Datei -->
-    <script src="Nordheim24_Interactive.js"></script>
-<div class="product-banner">
-    <div class="banner-content">
-        <span>🥖 Frische Brötchen - 2,20€</span>
-        <span>🥛 Milch - 2,50€</span>
-        <span>🍎 Äpfel - 3,00€ / kg</span>
-        <!-- Weitere Produkte können hier hinzugefügt werden -->
-    </div>
-</div>
+    <script src="script.js"></script>
 </body>
 </html>
