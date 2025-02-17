@@ -14,37 +14,26 @@ function addToCart(productId) {
     if (product) {
         cart.push(product);
         localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${product.name} wurde in den Warenkorb gelegt!`);
         updateCartDisplay();
     }
 }
 
-// **Neuer Fix: updateCartDisplay leert den Warenkorb immer vollständig**
+// **NEUER FIX: updateCartDisplay löscht den vorherigen Warenkorb korrekt**
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart");
-
-    // Löscht vorherigen Inhalt, damit keine Duplikate entstehen
+    
+    // Vorherigen Inhalt löschen, um doppelte Anzeigen zu vermeiden
     cartContainer.innerHTML = "";
 
-    // Warenkorb-Überschrift
-    const cartTitle = document.createElement("h3");
-    cartTitle.textContent = "🛒 Dein Warenkorb";
-    cartContainer.appendChild(cartTitle);
-
-    // Falls der Warenkorb leer ist
     if (cart.length === 0) {
-        const emptyMessage = document.createElement("p");
-        emptyMessage.textContent = "Dein Warenkorb ist leer.";
-        cartContainer.appendChild(emptyMessage);
+        cartContainer.innerHTML = "<p>Dein Warenkorb ist leer.</p>";
         return;
     }
 
-    // Produkte im Warenkorb anzeigen
     cart.forEach((item, index) => {
         const itemElement = document.createElement("p");
         itemElement.innerHTML = `${item.name} - ${item.price.toFixed(2)}€ `;
 
-        // Entfernen-Button
         const removeButton = document.createElement("button");
         removeButton.textContent = "❌";
         removeButton.addEventListener("click", function() {
@@ -55,13 +44,11 @@ function updateCartDisplay() {
         cartContainer.appendChild(itemElement);
     });
 
-    // Gesamtpreis anzeigen
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     const totalElement = document.createElement("h4");
     totalElement.textContent = `Gesamt: ${total.toFixed(2)}€`;
     cartContainer.appendChild(totalElement);
 
-    // Checkout-Button erstellen
     const checkoutButton = document.createElement("button");
     checkoutButton.textContent = "🛍️ Zur Kasse";
     checkoutButton.addEventListener("click", function() {
@@ -78,12 +65,12 @@ function removeFromCart(index) {
     updateCartDisplay();
 }
 
-// Checkout-Funktion (PayPal-Integration folgt)
+// Checkout-Funktion
 function checkout() {
     alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
 }
 
-// **Sicherstellen, dass updateCartDisplay nur einmal aufgerufen wird**
+// **Nur einmalige Initialisierung des Warenkorbs**
 document.addEventListener("DOMContentLoaded", function() {
     updateCartDisplay();
 });
