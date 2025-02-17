@@ -30,12 +30,33 @@ function updateCartDisplay() {
     }
 
     cart.forEach((item, index) => {
-        cartContainer.innerHTML += `<p>${item.name} - ${item.price.toFixed(2)}€ <button onclick="removeFromCart(${index})">❌</button></p>`;
+        const itemElement = document.createElement("p");
+        itemElement.innerHTML = `${item.name} - ${item.price.toFixed(2)}€ `;
+
+        // Entfernen-Button erstellen
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "❌";
+        removeButton.addEventListener("click", function() {
+            removeFromCart(index);
+        });
+
+        itemElement.appendChild(removeButton);
+        cartContainer.appendChild(itemElement);
     });
 
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    cartContainer.innerHTML += `<h4>Gesamt: ${total.toFixed(2)}€</h4>`;
-    cartContainer.innerHTML += `<button onclick="checkout()">🛍️ Zur Kasse</button>`;
+    const totalElement = document.createElement("h4");
+    totalElement.textContent = `Gesamt: ${total.toFixed(2)}€`;
+    cartContainer.appendChild(totalElement);
+
+    // Checkout-Button erstellen
+    const checkoutButton = document.createElement("button");
+    checkoutButton.textContent = "🛍️ Zur Kasse";
+    checkoutButton.addEventListener("click", function() {
+        checkout();
+    });
+
+    cartContainer.appendChild(checkoutButton);
 }
 
 // Funktion zum Entfernen eines Produkts aus dem Warenkorb
