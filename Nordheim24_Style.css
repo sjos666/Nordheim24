@@ -16,11 +16,6 @@ body {
     margin-bottom: 20px;
 }
 
-.logo {
-    max-width: 200px;
-    height: auto;
-}
-
 .product {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 10px;
