@@ -12,10 +12,9 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-color: transparent;
-            color: black;
             text-align: center;
             padding: 20px;
+            color: black;
         }
         
         .header {
@@ -62,14 +61,15 @@
         <p>🍎 Äpfel - 3,00€ / kg <button onclick="addToCart(3)">🛒 In den Warenkorb</button></p>
     </div>
 
-    <h3>🛒 Dein Warenkorb</h3>
-    <div id="cart">
-        <p>Dein Warenkorb ist leer.</p>
+    <!-- **Nur EIN Warenkorb-Bereich, damit kein Duplikat entsteht** -->
+    <div id="cart-container">
+        <h3>🛒 Dein Warenkorb</h3>
+        <div id="cart"></div>
     </div>
 
     <p><strong>Zugang nur mit App und NFC-Karte.</strong></p>
 
-    <!-- Einbindung der JavaScript-Datei -->
+    <!-- Einbindung der interaktiven JavaScript-Datei -->
     <script src="Nordheim24_Interactive.js"></script>
 
 </body>
