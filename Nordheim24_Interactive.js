@@ -18,11 +18,11 @@ function addToCart(productId) {
     }
 }
 
-// **NEUER FIX: updateCartDisplay löscht den vorherigen Warenkorb korrekt**
+// **NEUER FIX: updateCartDisplay() löscht vorherigen Warenkorb korrekt**
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart");
-    
-    // Vorherigen Inhalt löschen, um doppelte Anzeigen zu vermeiden
+
+    // Vorherigen Inhalt löschen
     cartContainer.innerHTML = "";
 
     if (cart.length === 0) {
