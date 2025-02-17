@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: url('https://raw.githubusercontent.com/sjos666/Nordheim24/main/background.jpg'); /* Direktlink aus GitHub */
+    background-image: url('background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -9,10 +9,10 @@ body {
     text-align: center;
     padding: 20px;
 }
+
 .logo {
     display: block;
     margin: 0 auto;
-    background: none;
     max-width: 300px;
 }
 
@@ -29,11 +29,25 @@ body {
     border-radius: 5px;
     display: inline-block;
 }
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
 /* Stil für den Produkt-Banner */
 .product-banner {
     width: 100%;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.8); /* Halbtransparenter Hintergrund */
+    background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
@@ -48,7 +62,7 @@ body {
 
 .banner-content span {
     display: inline-block;
-    margin-right: 50px; /* Abstand zwischen den Produkten */
+    margin-right: 50px;
     font-size: 1.2em;
     color: #333;
 }
