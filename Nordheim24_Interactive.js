@@ -19,23 +19,32 @@ function addToCart(productId) {
     }
 }
 
-// Funktion zum Anzeigen des Warenkorbs (verhindert doppelte Einträge)
+// **Neuer Fix: updateCartDisplay leert den Warenkorb immer vollständig**
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart");
-    
-    // Löscht vorherigen Warenkorb-Inhalt, um doppelte Einträge zu vermeiden
-    cartContainer.innerHTML = "<h3>🛒 Dein Warenkorb</h3>";
 
+    // Löscht vorherigen Inhalt, damit keine Duplikate entstehen
+    cartContainer.innerHTML = "";
+
+    // Warenkorb-Überschrift
+    const cartTitle = document.createElement("h3");
+    cartTitle.textContent = "🛒 Dein Warenkorb";
+    cartContainer.appendChild(cartTitle);
+
+    // Falls der Warenkorb leer ist
     if (cart.length === 0) {
-        cartContainer.innerHTML += "<p>Dein Warenkorb ist leer.</p>";
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "Dein Warenkorb ist leer.";
+        cartContainer.appendChild(emptyMessage);
         return;
     }
 
+    // Produkte im Warenkorb anzeigen
     cart.forEach((item, index) => {
         const itemElement = document.createElement("p");
         itemElement.innerHTML = `${item.name} - ${item.price.toFixed(2)}€ `;
 
-        // Entfernen-Button erstellen
+        // Entfernen-Button
         const removeButton = document.createElement("button");
         removeButton.textContent = "❌";
         removeButton.addEventListener("click", function() {
@@ -46,6 +55,7 @@ function updateCartDisplay() {
         cartContainer.appendChild(itemElement);
     });
 
+    // Gesamtpreis anzeigen
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     const totalElement = document.createElement("h4");
     totalElement.textContent = `Gesamt: ${total.toFixed(2)}€`;
@@ -68,12 +78,12 @@ function removeFromCart(index) {
     updateCartDisplay();
 }
 
-// Checkout-Funktion (PayPal-Integration möglich)
+// Checkout-Funktion (PayPal-Integration folgt)
 function checkout() {
     alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
 }
 
-// Automatisches Laden des Warenkorbs beim Öffnen der Seite
+// **Sicherstellen, dass updateCartDisplay nur einmal aufgerufen wird**
 document.addEventListener("DOMContentLoaded", function() {
     updateCartDisplay();
 });
