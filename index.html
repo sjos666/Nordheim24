@@ -1,76 +1,76 @@
-// Produkt-Datenbank (Beispielprodukte)
-const products = [
-    { id: 1, name: "Frische Brötchen", price: 2.20 },
-    { id: 2, name: "Milch", price: 2.50 },
-    { id: 3, name: "Äpfel (1kg)", price: 3.00 }
-];
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nordheim24 - Der 24/7 Supermarkt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://raw.githubusercontent.com/sjos666/Nordheim24/main/background.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 20px;
+            color: black;
+        }
+        
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .product {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
 
-// Warenkorb-Array (wird im localStorage gespeichert)
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-// Funktion zum Hinzufügen eines Produkts in den Warenkorb
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartDisplay();
-    }
-}
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
 
-// **NEUER FIX: updateCartDisplay() löscht vorherigen Warenkorb korrekt**
-function updateCartDisplay() {
-    const cartContainer = document.getElementById("cart");
+    <div class="header">
+        <img class="logo" src="Nordheim24_Logo.png" alt="Nordheim24 Logo">
+    </div>
 
-    // Vorherigen Inhalt löschen
-    cartContainer.innerHTML = "";
+    <h1>Ihr vollautomatisierter 24/7 Supermarkt.</h1>
 
-    if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Dein Warenkorb ist leer.</p>";
-        return;
-    }
+    <h2>Unsere Produkte</h2>
 
-    cart.forEach((item, index) => {
-        const itemElement = document.createElement("p");
-        itemElement.innerHTML = `${item.name} - ${item.price.toFixed(2)}€ `;
+    <div id="products">
+        <p>🥖 Frische Brötchen - 2,20€ <button onclick="addToCart(1)">🛒 In den Warenkorb</button></p>
+        <p>🥛 Milch - 2,50€ <button onclick="addToCart(2)">🛒 In den Warenkorb</button></p>
+        <p>🍎 Äpfel - 3,00€ / kg <button onclick="addToCart(3)">🛒 In den Warenkorb</button></p>
+    </div>
 
-        const removeButton = document.createElement("button");
-        removeButton.textContent = "❌";
-        removeButton.addEventListener("click", function() {
-            removeFromCart(index);
-        });
+    <!-- Warenkorb-Anzeige (nur eine Instanz) -->
+    <div id="cart-container">
+        <h3>🛒 Dein Warenkorb</h3>
+        <div id="cart"></div>
+    </div>
 
-        itemElement.appendChild(removeButton);
-        cartContainer.appendChild(itemElement);
-    });
+    <p><strong>Zugang nur mit App und NFC-Karte.</strong></p>
 
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    const totalElement = document.createElement("h4");
-    totalElement.textContent = `Gesamt: ${total.toFixed(2)}€`;
-    cartContainer.appendChild(totalElement);
+    <!-- Einbindung der interaktiven JavaScript-Datei -->
+    <script src="Nordheim24_Interactive.js"></script>
 
-    const checkoutButton = document.createElement("button");
-    checkoutButton.textContent = "🛍️ Zur Kasse";
-    checkoutButton.addEventListener("click", function() {
-        checkout();
-    });
-
-    cartContainer.appendChild(checkoutButton);
-}
-
-// Funktion zum Entfernen eines Produkts aus dem Warenkorb
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartDisplay();
-}
-
-// Checkout-Funktion
-function checkout() {
-    alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
-}
-
-// **Nur einmalige Initialisierung des Warenkorbs**
-document.addEventListener("DOMContentLoaded", function() {
-    updateCartDisplay();
-});
+</body>
+</html>
