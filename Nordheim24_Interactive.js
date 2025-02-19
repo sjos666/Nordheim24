@@ -18,44 +18,25 @@ function addToCart(productId) {
     }
 }
 
-// **NEUER FIX: updateCartDisplay() löscht vorherigen Warenkorb korrekt**
+// Funktion zum Anzeigen des Warenkorbs
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart");
-
-    // Vorherigen Inhalt löschen
-    cartContainer.innerHTML = "";
+    cartContainer.innerHTML = "<h3>🛒 Dein Warenkorb</h3>";
 
     if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Dein Warenkorb ist leer.</p>";
+        cartContainer.innerHTML += "<p>Dein Warenkorb ist leer.</p>";
         return;
     }
 
+    let total = 0;
     cart.forEach((item, index) => {
-        const itemElement = document.createElement("p");
-        itemElement.innerHTML = `${item.name} - ${item.price.toFixed(2)}€ `;
-
-        const removeButton = document.createElement("button");
-        removeButton.textContent = "❌";
-        removeButton.addEventListener("click", function() {
-            removeFromCart(index);
-        });
-
-        itemElement.appendChild(removeButton);
-        cartContainer.appendChild(itemElement);
+        total += item.price;
+        cartContainer.innerHTML += `
+            <p>${item.name} - ${item.price.toFixed(2)}€ 
+            <button onclick="removeFromCart(${index})">❌</button></p>`;
     });
 
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    const totalElement = document.createElement("h4");
-    totalElement.textContent = `Gesamt: ${total.toFixed(2)}€`;
-    cartContainer.appendChild(totalElement);
-
-    const checkoutButton = document.createElement("button");
-    checkoutButton.textContent = "🛍️ Zur Kasse";
-    checkoutButton.addEventListener("click", function() {
-        checkout();
-    });
-
-    cartContainer.appendChild(checkoutButton);
+    cartContainer.innerHTML += `<h4>Gesamt: ${total.toFixed(2)}€</h4>`;
 }
 
 // Funktion zum Entfernen eines Produkts aus dem Warenkorb
@@ -65,12 +46,21 @@ function removeFromCart(index) {
     updateCartDisplay();
 }
 
-// Checkout-Funktion
-function checkout() {
-    alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
+// **Zahlungsmethoden**
+function checkoutWithPaypal() {
+    alert("Du wirst zur PayPal-Zahlung weitergeleitet.");
+    window.location.href = "https://www.paypal.com/de/home";
 }
 
-// **Nur einmalige Initialisierung des Warenkorbs**
+function checkoutWithCard() {
+    alert("Gib deine Kreditkartendaten ein.");
+}
+
+function checkoutWithNFC() {
+    alert("NFC-Zahlung aktiviert! Halte dein Gerät an das Terminal.");
+}
+
+// Automatisches Laden des Warenkorbs beim Öffnen der Seite
 document.addEventListener("DOMContentLoaded", function() {
     updateCartDisplay();
 });
