@@ -1,56 +1,72 @@
-// Produkt-Datenbank
-const products = [
-    { id: 1, name: "Frische Brötchen", price: 2.20 },
-    { id: 2, name: "Milch", price: 2.50 },
-    { id: 3, name: "Äpfel (1kg)", price: 3.00 }
-];
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warenkorb - Nordheim24</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://raw.githubusercontent.com/sjos666/Nordheim24/main/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 20px;
+            color: black;
+        }
 
-// Warenkorb-Array
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        .cart-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
 
-// Funktion zum Hinzufügen eines Produkts
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${product.name} wurde in den Warenkorb gelegt!`);
-    }
-}
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-// Warenkorb auf cart.html anzeigen
-function updateCartDisplay() {
-    const cartContainer = document.getElementById("cart");
-    if (!cartContainer) return;
+        .checkout-options {
+            margin-top: 20px;
+        }
 
-    cartContainer.innerHTML = "";
+        .checkout-options button {
+            background-color: #0070BA;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
 
-    if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Dein Warenkorb ist leer.</p>";
-        document.getElementById("total").innerText = "0.00";
-        return;
-    }
+    <h1>🛒 Dein Warenkorb</h1>
+    <div class="cart-container">
+        <div id="cart">
+            <p>Dein Warenkorb ist leer.</p>
+        </div>
 
-    let total = 0;
-    cart.forEach((item, index) => {
-        total += item.price;
-        cartContainer.innerHTML += `<p>${item.name} - ${item.price.toFixed(2)}€ <button onclick="removeFromCart(${index})">❌</button></p>`;
-    });
+        <h3>Gesamt: <span id="total">0.00€</span></h3>
 
-    document.getElementById("total").innerText = total.toFixed(2);
-}
+        <div class="checkout-options">
+            <button onclick="checkoutWithPaypal()">💳 PayPal</button>
+            <button onclick="checkoutWithCard()">💳 Kreditkarte</button>
+            <button onclick="checkoutWithNFC()">📲 NFC-Zahlung</button>
+        </div>
+    </div>
 
-// Produkt entfernen
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartDisplay();
-}
+    <br>
+    <button onclick="window.location.href='index.html'">🔙 Zurück zum Shop</button>
 
-// Checkout-Funktion (noch keine Zahlung)
-function checkout() {
-    alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
-}
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=DEIN_PAYPAL_CLIENT_ID"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="Nordheim24_Interactive.js"></script>
 
-// Automatische Warenkorb-Anzeige beim Laden der Seite
-document.addEventListener("DOMContentLoaded", updateCartDisplay);
+</body>
+</html>
