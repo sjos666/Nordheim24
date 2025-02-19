@@ -38,10 +38,10 @@ const products = {
     ]
 };
 
-// Warenkorb
+// Warenkorb aus localStorage laden
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// URL Parameter für Kategorie auslesen
+// Funktion zum Initialisieren der Produktseite
 function initializePage() {
     const params = new URLSearchParams(window.location.search);
     const category = params.get("kategorie");
@@ -54,7 +54,7 @@ function initializePage() {
     }
 }
 
-// Produkte anzeigen
+// Produkte der gewählten Kategorie anzeigen
 function loadProducts(category) {
     const productList = document.getElementById("product-list");
     productList.innerHTML = "";
@@ -64,6 +64,7 @@ function loadProducts(category) {
         productDiv.classList.add("product");
         productDiv.innerHTML = `
             <p>${product.name} - ${product.price.toFixed(2)}€</p>
+            <label for="qty-${product.id}">Menge:</label>
             <input type="number" id="qty-${product.id}" value="1" min="1">
             <button onclick="addToCart(${product.id}, '${category}')">🛒 In den Warenkorb</button>
         `;
@@ -71,7 +72,7 @@ function loadProducts(category) {
     });
 }
 
-// Produkt zum Warenkorb hinzufügen
+// Produkt zum Warenkorb hinzufügen oder Menge anpassen
 function addToCart(productId, category) {
     let quantity = parseInt(document.getElementById(`qty-${productId}`).value);
     let item = cart.find(p => p.id === productId);
@@ -89,12 +90,12 @@ function addToCart(productId, category) {
     updateCartCount();
 }
 
-// Warenkorb-Anzeige aktualisieren
+// Warenkorb-Anzahl oben aktualisieren
 function updateCartCount() {
     document.getElementById("cart-count").innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
 }
 
-// Warenkorb-Seite aktualisieren
+// Warenkorb-Seite anzeigen
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart-container");
     cartContainer.innerHTML = "<h2>🛒 Dein Warenkorb</h2>";
@@ -109,7 +110,7 @@ function updateCartDisplay() {
         total += item.price * item.quantity;
         cartContainer.innerHTML += `
             <p>${item.name} - ${item.quantity} Stück - ${(item.price * item.quantity).toFixed(2)}€ 
-            <button onclick="removeFromCart(${index})">❌</button></p>
+            <button onclick="removeFromCart(${index})">❌ Entfernen</button></p>
         `;
     });
 
