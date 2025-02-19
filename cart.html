@@ -15,44 +15,12 @@
 
     <div id="cart-container"></div>
 
-    <h2>Bezahlung</h2>
-    <button onclick="checkout()">💳 Zur Kasse</button>
+    <div class="checkout-options">
+        <button onclick="checkout()">🛍️ Zur Kasse</button>
+    </div>
 
     <script src="script.js"></script>
     <script>
-        function updateCartDisplay() {
-            const cartContainer = document.getElementById("cart-container");
-            cartContainer.innerHTML = "";
-
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            if (cart.length === 0) {
-                cartContainer.innerHTML = "<p>Dein Warenkorb ist leer.</p>";
-                return;
-            }
-
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price * item.quantity;
-                cartContainer.innerHTML += `
-                    <p>${item.name} - ${item.quantity} Stück - ${(item.price * item.quantity).toFixed(2)}€
-                    <button onclick="removeFromCart(${index})">❌ Entfernen</button></p>
-                `;
-            });
-
-            cartContainer.innerHTML += `<h3>Gesamt: ${total.toFixed(2)}€</h3>`;
-        }
-
-        function removeFromCart(index) {
-            let cart = JSON.parse(localStorage.getItem("cart"));
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartDisplay();
-        }
-
-        function checkout() {
-            alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
-        }
-
         document.addEventListener("DOMContentLoaded", updateCartDisplay);
     </script>
 
