@@ -10,6 +10,12 @@ body {
     padding: 20px;
 }
 
+.logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 300px;
+}
+
 .header {
     font-size: 24px;
     font-weight: bold;
@@ -35,4 +41,47 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+/* Stil für den Produkt-Banner */
+.product-banner {
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.banner-content {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 10px 0;
+    animation: scrollBanner 15s linear infinite;
+}
+
+.banner-content span {
+    display: inline-block;
+    margin-right: 50px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+@keyframes scrollBanner {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Warenkorb */
+.cart-container {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: auto;
 }
