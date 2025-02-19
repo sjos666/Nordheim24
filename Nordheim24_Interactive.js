@@ -5,24 +5,27 @@ const products = [
     { id: 3, name: "Äpfel (1kg)", price: 3.00 }
 ];
 
-// Warenkorb-Array (wird im localStorage gespeichert)
+// Warenkorb (Mengen basierend)
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Produkt zum Warenkorb hinzufügen (inkl. Menge)
+// Produkt zum Warenkorb hinzufügen
 function addToCart(productId) {
     const quantity = parseInt(document.getElementById(`qty-${productId}`).value) || 1;
     const product = products.find(p => p.id === productId);
     
     if (product) {
-        for (let i = 0; i < quantity; i++) {
-            cart.push(product);
+        let cartItem = cart.find(item => item.id === productId);
+        if (cartItem) {
+            cartItem.quantity += quantity;
+        } else {
+            cart.push({ ...product, quantity: quantity });
         }
         localStorage.setItem("cart", JSON.stringify(cart));
         updateCartDisplay();
     }
 }
 
-// Warenkorb anzeigen
+// Warenkorb aktualisieren
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart");
     if (!cartContainer) return;
@@ -37,9 +40,12 @@ function updateCartDisplay() {
 
     let total = 0;
     cart.forEach((item, index) => {
-        total += item.price;
+        total += item.price * item.quantity;
         cartContainer.innerHTML += `
-            <p>${item.name} - ${item.price.toFixed(2)}€ <button onclick="removeFromCart(${index})">❌</button></p>`;
+            <div class="cart-item">
+                <span>${item.name} - ${item.price.toFixed(2)}€ x ${item.quantity}</span>
+                <button onclick="removeFromCart(${index})">❌</button>
+            </div>`;
     });
 
     document.getElementById("total").innerText = total.toFixed(2) + "€";
@@ -52,15 +58,10 @@ function removeFromCart(index) {
     updateCartDisplay();
 }
 
-// Bezahlung mit Kreditkarte (Platzhalter für Stripe)
-function payWithCard() {
-    alert("Kreditkartenzahlung folgt...");
+// Zahlung per PayPal
+function checkout() {
+    alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
 }
 
-// Bezahlung mit NFC (Platzhalter)
-function payWithNFC() {
-    alert("NFC-Zahlung folgt...");
-}
-
-// Automatische Anzeige des Warenkorbs
+// Warenkorb automatisch anzeigen
 document.addEventListener("DOMContentLoaded", updateCartDisplay);
