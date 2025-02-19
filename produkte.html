@@ -6,7 +6,7 @@
     <title>Produkte - Nordheim24</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="initializePage()">
 
     <header>
         <a href="index.html">⬅ Zurück</a>
@@ -20,15 +20,5 @@
     <div id="product-list"></div>
 
     <script src="script.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const params = new URLSearchParams(window.location.search);
-            const category = params.get("kategorie");
-            document.getElementById("category-title").innerText = category.replace("_", " & ");
-
-            loadProducts(category);
-        });
-    </script>
-
 </body>
 </html>
