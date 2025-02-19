@@ -1,56 +1,75 @@
-// Produkt-Datenbank
-const products = [
-    { id: 1, name: "Frische Brötchen", price: 2.20 },
-    { id: 2, name: "Milch", price: 2.50 },
-    { id: 3, name: "Äpfel (1kg)", price: 3.00 }
-];
+const products = {
+    "Brot": ["Brot", "Backwaren"],
+    "Milch": ["Milch", "Milchprodukte", "Eier"],
+    "Grundnahrungsmittel": ["Teigwaren", "Reis", "Hülsenfrüchte", "Mehl", "Zucker", "Öl", "Salz"],
+    "Getränke": ["Wasser", "Softdrinks", "Säfte", "Kaffee", "Tee", "Bier", "Wein"],
+    "Obst_Gemuese": ["Äpfel", "Bananen", "Orangen", "Zitronen", "Tomaten", "Gurken", "Zwiebeln", "Paprika"],
+    "Fleisch": ["Frischfleisch", "Wurstwaren"],
+    "TK": ["Tiefkühlgemüse", "Tiefkühlobst", "Pizza", "Pommes", "Fischstäbchen", "Eiscreme"],
+    "Konserven": ["Dosensuppen", "Eintöpfe", "Gemüsedosen", "Mais", "Bohnen", "Erbsen", "Fertiggerichte", "Marmelade", "Honig", "Schokocreme"],
+    "Snacks": ["Schokolade", "Kekse", "Gummibärchen", "Chips", "Salzgebäck", "Nüsse", "Trockenfrüchte"],
+    "Hygiene": ["Toilettenpapier", "Taschentücher", "Zahnpasta", "Shampoo", "Seife", "Waschmittel", "Spülmittel"]
+};
 
-// Warenkorb-Array
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-// Funktion zum Hinzufügen eines Produkts
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${product.name} wurde in den Warenkorb gelegt!`);
-    }
-}
+function loadProducts(category) {
+    const productList = document.getElementById("product-list");
+    productList.innerHTML = "";
 
-// Warenkorb auf cart.html anzeigen
-function updateCartDisplay() {
-    const cartContainer = document.getElementById("cart");
-    if (!cartContainer) return;
-
-    cartContainer.innerHTML = "";
-
-    if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Dein Warenkorb ist leer.</p>";
-        document.getElementById("total").innerText = "0.00";
-        return;
-    }
-
-    let total = 0;
-    cart.forEach((item, index) => {
-        total += item.price;
-        cartContainer.innerHTML += `<p>${item.name} - ${item.price.toFixed(2)}€ <button onclick="removeFromCart(${index})">❌</button></p>`;
+    products[category].forEach((item, index) => {
+        productList.innerHTML += `
+            <div class="product">
+                ${item} - <span id="price${index}">${(Math.random() * 5 + 1).toFixed(2)}€</span>
+                <input type="number" id="quantity${index}" value="1" min="1">
+                <button onclick="addToCart('${item}', ${index})">🛒 In den Warenkorb</button>
+            </div>
+        `;
     });
-
-    document.getElementById("total").innerText = total.toFixed(2);
 }
 
-// Produkt entfernen
-function removeFromCart(index) {
-    cart.splice(index, 1);
+function addToCart(item, index) {
+    let quantity = document.getElementById(`quantity${index}`).value;
+    let price = parseFloat(document.getElementById(`price${index}`).innerText);
+
+    if (!cart[item]) {
+        cart[item] = { price: price, quantity: 0 };
+    }
+
+    cart[item].quantity += parseInt(quantity);
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartDisplay();
 }
 
-// Checkout-Funktion (noch keine Zahlung)
-function checkout() {
-    alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
+function updateCartDisplay() {
+    let cartCount = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("cart-count").innerText = cartCount;
 }
 
-// Automatische Warenkorb-Anzeige beim Laden der Seite
+function showCart() {
+    const cartContainer = document.getElementById("cart-container");
+    cartContainer.innerHTML = "";
+    let total = 0;
+
+    for (let item in cart) {
+        cartContainer.innerHTML += `
+            <p>${item} - ${cart[item].quantity} x ${cart[item].price.toFixed(2)}€ 
+            <button onclick="removeFromCart('${item}')">❌</button></p>
+        `;
+        total += cart[item].quantity * cart[item].price;
+    }
+
+    document.getElementById("total").innerText = total.toFixed(2) + "€";
+}
+
+function removeFromCart(item) {
+    delete cart[item];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    showCart();
+}
+
+function checkout() {
+    alert("PayPal & Kreditkarte werden bald integriert!");
+}
+
 document.addEventListener("DOMContentLoaded", updateCartDisplay);
