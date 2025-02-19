@@ -17,12 +17,6 @@
             color: black;
         }
 
-        .header {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
         .product {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 10px;
@@ -40,10 +34,6 @@
             border-radius: 5px;
         }
 
-        button:hover {
-            background-color: #45a049;
-        }
-
         .checkout-options {
             margin-top: 20px;
         }
@@ -51,7 +41,6 @@
         .checkout-options button {
             background-color: #0070BA;
         }
-
     </style>
 </head>
 <body>
@@ -92,7 +81,9 @@
 
     <p><strong>Zugang nur mit App und NFC-Karte.</strong></p>
 
-    <!-- JavaScript Datei einbinden -->
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=DEIN_PAYPAL_CLIENT_ID"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="Nordheim24_Interactive.js"></script>
 
 </body>
