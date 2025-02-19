@@ -22,7 +22,14 @@
             padding: 10px;
             margin: 10px;
             border-radius: 5px;
-            display: inline-block;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product input {
+            width: 50px;
+            text-align: center;
         }
 
         button {
@@ -55,19 +62,19 @@
 
     <div id="products">
         <div class="product">
-            🥖 Frische Brötchen - 2,20€ 
+            <span>🥖 Frische Brötchen - 2,20€</span>
             <input type="number" id="qty-1" min="1" value="1">
-            <button onclick="addToCart(1)">🛒 In den Warenkorb</button>
+            <button onclick="addToCart(1)">🛒</button>
         </div>
         <div class="product">
-            🥛 Milch - 2,50€ 
+            <span>🥛 Milch - 2,50€</span>
             <input type="number" id="qty-2" min="1" value="1">
-            <button onclick="addToCart(2)">🛒 In den Warenkorb</button>
+            <button onclick="addToCart(2)">🛒</button>
         </div>
         <div class="product">
-            🍎 Äpfel - 3,00€ / kg 
+            <span>🍎 Äpfel - 3,00€ / kg</span>
             <input type="number" id="qty-3" min="1" value="1">
-            <button onclick="addToCart(3)">🛒 In den Warenkorb</button>
+            <button onclick="addToCart(3)">🛒</button>
         </div>
     </div>
 
@@ -82,9 +89,6 @@
 
     <p><strong>Zugang nur mit App und NFC-Karte.</strong></p>
 
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=DEIN_PAYPAL_CLIENT_ID"></script>
-    <script src="https://js.stripe.com/v3/"></script>
     <script src="Nordheim24_Interactive.js"></script>
 
 </body>
