@@ -4,50 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warenkorb - Nordheim24</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            color: black;
-        }
-
-        .cart-item {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-item input {
-            width: 50px;
-            text-align: center;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>🛒 Dein Warenkorb</h1>
-    <div id="cart"></div>
+    <header>
+        <a href="index.html">⬅ Zurück</a>
+        <h1>🛒 Dein Warenkorb</h1>
+    </header>
 
-    <h3>Gesamt: <span id="total">0.00€</span></h3>
+    <div id="cart-container"></div>
+    <h3>Gesamt: <span id="total">0,00€</span></h3>
 
     <button onclick="checkout()">🛍️ Zur Kasse</button>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=DEIN_PAYPAL_CLIENT_ID"></script>
-    <script src="Nordheim24_Interactive.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
