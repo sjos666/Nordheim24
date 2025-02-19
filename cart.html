@@ -17,7 +17,14 @@
             padding: 10px;
             margin: 10px;
             border-radius: 5px;
-            display: inline-block;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item input {
+            width: 50px;
+            text-align: center;
         }
 
         button {
@@ -37,13 +44,9 @@
 
     <h3>Gesamt: <span id="total">0.00€</span></h3>
 
-    <!-- Zahlungsmethoden -->
-    <button id="paypal-button">PayPal</button>
-    <button onclick="payWithCard()">💳 Kreditkarte</button>
-    <button onclick="payWithNFC()">📱 NFC-Zahlung</button>
+    <button onclick="checkout()">🛍️ Zur Kasse</button>
 
     <script src="https://www.paypal.com/sdk/js?client-id=DEIN_PAYPAL_CLIENT_ID"></script>
-    <script src="https://js.stripe.com/v3/"></script>
     <script src="Nordheim24_Interactive.js"></script>
 
 </body>
