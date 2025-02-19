@@ -17,15 +17,19 @@ function loadProducts(category) {
     const productList = document.getElementById("product-list");
     productList.innerHTML = "";
 
-    products[category].forEach((item, index) => {
-        productList.innerHTML += `
-            <div class="product">
-                ${item} - <span id="price${index}">${(Math.random() * 5 + 1).toFixed(2)}€</span>
-                <input type="number" id="quantity${index}" value="1" min="1">
-                <button onclick="addToCart('${item}', ${index})">🛒 In den Warenkorb</button>
-            </div>
-        `;
-    });
+    if (products[category]) {
+        products[category].forEach((item, index) => {
+            productList.innerHTML += `
+                <div class="product">
+                    ${item} - <span id="price${index}">${(Math.random() * 5 + 1).toFixed(2)}€</span>
+                    <input type="number" id="quantity${index}" value="1" min="1">
+                    <button onclick="addToCart('${item}', ${index})">🛒 In den Warenkorb</button>
+                </div>
+            `;
+        });
+    } else {
+        productList.innerHTML = "<p>Keine Produkte in dieser Kategorie.</p>";
+    }
 }
 
 function addToCart(item, index) {
@@ -54,8 +58,7 @@ function showCart() {
     for (let item in cart) {
         cartContainer.innerHTML += `
             <p>${item} - ${cart[item].quantity} x ${cart[item].price.toFixed(2)}€ 
-            <button onclick="removeFromCart('${item}')">❌</button></p>
-        `;
+            <button onclick="removeFromCart('${item}')">❌</button></p>`;
         total += cart[item].quantity * cart[item].price;
     }
 
