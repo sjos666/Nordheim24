@@ -1,14 +1,16 @@
 const products = {
-    "Brot": [{ id: 1, name: "Brötchen", price: 2.20 }],
-    "Milch": [{ id: 4, name: "Frische Milch", price: 2.50 }],
-    "Grundnahrungsmittel": [{ id: 7, name: "Reis", price: 2.00 }],
-    "Getränke": [{ id: 11, name: "Wasser", price: 1.00 }],
-    "Obst_Gemuese": [{ id: 15, name: "Äpfel", price: 3.00 }],
-    "Fleisch": [{ id: 18, name: "Hähnchenbrust", price: 6.00 }],
-    "TK": [{ id: 20, name: "TK-Gemüse", price: 2.50 }],
-    "Konserven": [{ id: 22, name: "Dosensuppe", price: 2.50 }],
-    "Snacks": [{ id: 24, name: "Schokolade", price: 2.00 }],
-    "Hygiene": [{ id: 26, name: "Zahnpasta", price: 2.50 }]
+    "Brot_Backwaren": [
+        { id: 1, name: "Brötchen", price: 2.20 },
+        { id: 2, name: "Baguette", price: 2.50 }
+    ],
+    "Milchprodukte": [
+        { id: 3, name: "Milch", price: 2.50 },
+        { id: 4, name: "Joghurt", price: 1.50 }
+    ],
+    "Getraenke": [
+        { id: 5, name: "Wasser", price: 1.00 },
+        { id: 6, name: "Cola", price: 1.50 }
+    ]
 };
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
