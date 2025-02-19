@@ -7,20 +7,16 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://raw.githubusercontent.com/sjos666/Nordheim24/main/background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             text-align: center;
             padding: 20px;
             color: black;
         }
 
-        .cart-container {
+        .cart-item {
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
             display: inline-block;
         }
 
@@ -32,38 +28,20 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
-        .checkout-options {
-            margin-top: 20px;
-        }
-
-        .checkout-options button {
-            background-color: #0070BA;
-            margin: 5px;
-        }
     </style>
 </head>
 <body>
 
     <h1>🛒 Dein Warenkorb</h1>
-    <div class="cart-container">
-        <div id="cart">
-            <p>Dein Warenkorb ist leer.</p>
-        </div>
+    <div id="cart"></div>
 
-        <h3>Gesamt: <span id="total">0.00€</span></h3>
+    <h3>Gesamt: <span id="total">0.00€</span></h3>
 
-        <div class="checkout-options">
-            <button onclick="checkoutWithPaypal()">💳 PayPal</button>
-            <button onclick="checkoutWithCard()">💳 Kreditkarte</button>
-            <button onclick="checkoutWithNFC()">📲 NFC-Zahlung</button>
-        </div>
-    </div>
+    <!-- Zahlungsmethoden -->
+    <button id="paypal-button">PayPal</button>
+    <button onclick="payWithCard()">💳 Kreditkarte</button>
+    <button onclick="payWithNFC()">📱 NFC-Zahlung</button>
 
-    <br>
-    <button onclick="window.location.href='index.html'">🔙 Zurück zum Shop</button>
-
-    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=DEIN_PAYPAL_CLIENT_ID"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script src="Nordheim24_Interactive.js"></script>
