@@ -4,92 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nordheim24 - Der 24/7 Supermarkt</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('https://raw.githubusercontent.com/sjos666/Nordheim24/main/background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            text-align: center;
-            padding: 20px;
-            color: black;
-        }
-
-        .product {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product input {
-            width: 50px;
-            text-align: center;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .checkout-options {
-            margin-top: 20px;
-        }
-
-        .checkout-options button {
-            background-color: #0070BA;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="header">
+    <header>
         <img class="logo" src="Nordheim24_Logo.png" alt="Nordheim24 Logo">
-    </div>
-
-    <h1>Ihr vollautomatisierter 24/7 Supermarkt.</h1>
-
-    <h2>Unsere Produkte</h2>
-
-    <div id="products">
-        <div class="product">
-            <span>🥖 Frische Brötchen - 2,20€</span>
-            <input type="number" id="qty-1" min="1" value="1">
-            <button onclick="addToCart(1)">🛒</button>
+        <h1>Ihr vollautomatisierter 24/7 Supermarkt</h1>
+        <div class="cart-info">
+            🛒 <span id="cart-count">0</span> Artikel im Warenkorb
+            <a href="cart.html">🛒 Zum Warenkorb</a>
         </div>
-        <div class="product">
-            <span>🥛 Milch - 2,50€</span>
-            <input type="number" id="qty-2" min="1" value="1">
-            <button onclick="addToCart(2)">🛒</button>
-        </div>
-        <div class="product">
-            <span>🍎 Äpfel - 3,00€ / kg</span>
-            <input type="number" id="qty-3" min="1" value="1">
-            <button onclick="addToCart(3)">🛒</button>
-        </div>
+    </header>
+
+    <h2>Kategorien</h2>
+    <div class="categories">
+        <a href="produkte.html?kategorie=Brot">Brot & Backwaren</a>
+        <a href="produkte.html?kategorie=Milch">Milch & Milchprodukte</a>
+        <a href="produkte.html?kategorie=Grundnahrungsmittel">Grundnahrungsmittel</a>
+        <a href="produkte.html?kategorie=Getränke">Getränke</a>
+        <a href="produkte.html?kategorie=Obst_Gemuese">Obst & Gemüse</a>
+        <a href="produkte.html?kategorie=Fleisch">Fleisch & Wurstwaren</a>
+        <a href="produkte.html?kategorie=TK">Tiefkühlprodukte</a>
+        <a href="produkte.html?kategorie=Konserven">Konserven & Fertigprodukte</a>
+        <a href="produkte.html?kategorie=Snacks">Snacks & Süßwaren</a>
+        <a href="produkte.html?kategorie=Hygiene">Hygiene & Haushaltsartikel</a>
     </div>
 
-    <h2>🛒 Dein Warenkorb</h2>
-    <div id="cart">
-        <p>Dein Warenkorb ist leer.</p>
-    </div>
-
-    <div class="checkout-options">
-        <button onclick="window.location.href='cart.html'">🛒 Gehe zu Warenkorb</button>
-    </div>
-
-    <p><strong>Zugang nur mit App und NFC-Karte.</strong></p>
-
-    <script src="Nordheim24_Interactive.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
