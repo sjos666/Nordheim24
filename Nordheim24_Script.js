@@ -1,86 +1,102 @@
-// Produkt-Datenbank
-const products = {
-    "Brot": [
-        { id: 1, name: "Brötchen", price: 2.20 },
-        { id: 2, name: "Baguette", price: 2.50 }
-    ],
-    "Milch": [
-        { id: 3, name: "Milch", price: 2.50 },
-        { id: 4, name: "Joghurt", price: 1.50 }
-    ],
-    "Getränke": [
-        { id: 5, name: "Wasser", price: 1.00 },
-        { id: 6, name: "Cola", price: 1.50 }
-    ],
-    "Obst_Gemuese": [
-        { id: 7, name: "Apfel", price: 0.80 },
-        { id: 8, name: "Banane", price: 0.60 }
-    ],
-    "Fleisch": [
-        { id: 9, name: "Hähnchenbrust", price: 5.00 },
-        { id: 10, name: "Salami", price: 3.50 }
-    ],
-    "TK": [
-        { id: 11, name: "TK-Gemüse", price: 3.00 },
-        { id: 12, name: "Pizza", price: 4.50 }
-    ],
-    "Konserven": [
-        { id: 13, name: "Bohnendose", price: 1.20 },
-        { id: 14, name: "Eintopf", price: 2.80 }
-    ],
-    "Snacks": [
-        { id: 15, name: "Schokolade", price: 1.50 },
-        { id: 16, name: "Chips", price: 2.00 }
-    ],
-    "Hygiene": [
-        { id: 17, name: "Shampoo", price: 3.00 },
-        { id: 18, name: "Seife", price: 1.00 }
-    ]
+// Produkt-Datenbank mit Kategorien und Unterkategorien
+const categories = {
+    "Brot & Backwaren": {
+        "Brötchen": [{ id: 1, name: "Kornbrötchen", price: 2.20 }, { id: 2, name: "Laugenbrötchen", price: 2.50 }],
+        "Baguette": [{ id: 3, name: "Weizenbaguette", price: 3.00 }]
+    },
+    "Milch & Milchprodukte": {
+        "Milch": [{ id: 4, name: "Frische Milch", price: 1.50 }],
+        "Joghurt": [{ id: 5, name: "Erdbeerjoghurt", price: 1.20 }]
+    },
+    "Getränke": {
+        "Wasser": [{ id: 6, name: "Mineralwasser", price: 1.00 }],
+        "Cola": [{ id: 7, name: "Cola Zero", price: 1.50 }]
+    },
+    "Obst & Gemüse": {
+        "Äpfel": [{ id: 8, name: "Rote Äpfel", price: 0.80 }],
+        "Bananen": [{ id: 9, name: "Fairtrade Bananen", price: 0.60 }]
+    }
 };
 
-// Warenkorb aus localStorage laden
+// Warenkorb laden
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Funktion zum Initialisieren der Produktseite
-function initializePage() {
+// Kategorien in HTML anzeigen
+function loadCategories() {
+    const categoryList = document.getElementById("category-list");
+    categoryList.innerHTML = "";
+
+    Object.keys(categories).forEach(category => {
+        let categoryLink = document.createElement("a");
+        categoryLink.href = `unterkategorie.html?kategorie=${encodeURIComponent(category)}`;
+        categoryLink.innerText = category;
+        categoryList.appendChild(categoryLink);
+        categoryList.appendChild(document.createElement("br"));
+    });
+}
+
+// Unterkategorien anzeigen
+function loadSubCategories() {
     const params = new URLSearchParams(window.location.search);
     const category = params.get("kategorie");
 
-    if (category && products[category]) {
-        document.getElementById("category-title").innerText = category.replace("_", " & ");
-        loadProducts(category);
-    } else {
-        document.getElementById("product-list").innerHTML = "<p>Keine Produkte gefunden.</p>";
+    if (!categories[category]) {
+        document.getElementById("sub-category-list").innerHTML = "<p>Keine Unterkategorien gefunden.</p>";
+        return;
     }
+
+    document.getElementById("category-title").innerText = category;
+
+    const subCategoryList = document.getElementById("sub-category-list");
+    subCategoryList.innerHTML = "";
+
+    Object.keys(categories[category]).forEach(subCategory => {
+        let subCategoryLink = document.createElement("a");
+        subCategoryLink.href = `produkte.html?kategorie=${encodeURIComponent(category)}&unterkategorie=${encodeURIComponent(subCategory)}`;
+        subCategoryLink.innerText = subCategory;
+        subCategoryList.appendChild(subCategoryLink);
+        subCategoryList.appendChild(document.createElement("br"));
+    });
 }
 
-// Produkte der gewählten Kategorie anzeigen
-function loadProducts(category) {
+// Produkte anzeigen
+function loadProducts() {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("kategorie");
+    const subCategory = params.get("unterkategorie");
+
+    if (!categories[category] || !categories[category][subCategory]) {
+        document.getElementById("product-list").innerHTML = "<p>Keine Produkte gefunden.</p>";
+        return;
+    }
+
+    document.getElementById("category-title").innerText = `${category} - ${subCategory}`;
+
     const productList = document.getElementById("product-list");
     productList.innerHTML = "";
 
-    products[category].forEach(product => {
+    categories[category][subCategory].forEach(product => {
         let productDiv = document.createElement("div");
         productDiv.classList.add("product");
         productDiv.innerHTML = `
             <p>${product.name} - ${product.price.toFixed(2)}€</p>
             <label for="qty-${product.id}">Menge:</label>
             <input type="number" id="qty-${product.id}" value="1" min="1">
-            <button onclick="addToCart(${product.id}, '${category}')">🛒 In den Warenkorb</button>
+            <button onclick="addToCart(${product.id}, '${category}', '${subCategory}')">🛒 In den Warenkorb</button>
         `;
         productList.appendChild(productDiv);
     });
 }
 
-// Produkt zum Warenkorb hinzufügen oder Menge anpassen
-function addToCart(productId, category) {
+// Produkt in den Warenkorb legen
+function addToCart(productId, category, subCategory) {
     let quantity = parseInt(document.getElementById(`qty-${productId}`).value);
     let item = cart.find(p => p.id === productId);
 
     if (item) {
         item.quantity += quantity;
     } else {
-        let product = products[category].find(p => p.id === productId);
+        let product = categories[category][subCategory].find(p => p.id === productId);
         if (product) {
             cart.push({ id: product.id, name: product.name, price: product.price, quantity: quantity });
         }
@@ -90,12 +106,12 @@ function addToCart(productId, category) {
     updateCartCount();
 }
 
-// Warenkorb-Anzahl oben aktualisieren
+// Warenkorb Anzahl aktualisieren
 function updateCartCount() {
     document.getElementById("cart-count").innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
 }
 
-// Warenkorb-Seite anzeigen
+// Warenkorb-Seite aktualisieren
 function updateCartDisplay() {
     const cartContainer = document.getElementById("cart-container");
     cartContainer.innerHTML = "<h2>🛒 Dein Warenkorb</h2>";
@@ -118,7 +134,7 @@ function updateCartDisplay() {
     cartContainer.innerHTML += `<button onclick="checkout()">🛍️ Zur Kasse</button>`;
 }
 
-// Produkt aus Warenkorb entfernen
+// Produkt entfernen
 function removeFromCart(index) {
     cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -130,9 +146,18 @@ function checkout() {
     alert("Zurzeit ist nur eine Vorschau möglich. PayPal-Integration folgt.");
 }
 
-// EventListener für Warenkorb
+// Initialisierung
 document.addEventListener("DOMContentLoaded", function() {
     updateCartCount();
+    if (document.getElementById("category-list")) {
+        loadCategories();
+    }
+    if (document.getElementById("sub-category-list")) {
+        loadSubCategories();
+    }
+    if (document.getElementById("product-list")) {
+        loadProducts();
+    }
     if (document.getElementById("cart-container")) {
         updateCartDisplay();
     }
