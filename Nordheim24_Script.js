@@ -7,21 +7,13 @@ const categories = {
     "Milch & Milchprodukte": {
         "Milch": [{ id: 4, name: "Frische Milch", price: 1.50 }],
         "Joghurt": [{ id: 5, name: "Erdbeerjoghurt", price: 1.20 }]
-    },
-    "Getränke": {
-        "Wasser": [{ id: 6, name: "Mineralwasser", price: 1.00 }],
-        "Cola": [{ id: 7, name: "Cola Zero", price: 1.50 }]
-    },
-    "Obst & Gemüse": {
-        "Äpfel": [{ id: 8, name: "Rote Äpfel", price: 0.80 }],
-        "Bananen": [{ id: 9, name: "Fairtrade Bananen", price: 0.60 }]
     }
 };
 
-// Warenkorb laden
+// Warenkorb
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Kategorien in HTML anzeigen
+// Kategorien anzeigen
 function loadCategories() {
     const categoryList = document.getElementById("category-list");
     categoryList.innerHTML = "";
